@@ -7,8 +7,8 @@
   # Use https://search.nixos.org/packages to find packages
   packages = [
     # pkgs.go
-    # pkgs.python311
-    # pkgs.python311Packages.pip
+    # pkgs.python3
+    # pkgs.python3Packages.pip
     # pkgs.nodejs_20
     # pkgs.nodePackages.nodemon
   ];
@@ -20,6 +20,22 @@
     extensions = [
       # "vscodevim.vim"
     ];
+
+  { pkgs ? import <nixpkgs> {} }:
+
+  pkgs.mkShell {
+  buildInputs = [
+    pkgs.python312
+    pkgs.python312Packages.pip
+    pkgs.python312Packages.setuptools
+    pkgs.python312Packages.wheel
+  ];
+
+  shellHook = ''
+    echo "✅ Nix dev environment ready. Use pip to install fireworks-ai:"
+    echo "   pip install --break-system-packages fireworks-ai"
+  '';
+}
 
     # Enable previews
     previews = {
